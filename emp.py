@@ -46,8 +46,16 @@ def part_or_full():
 try:
     if is_present() :
         print("Employee is present today")
-        daily_wage = calc_daily_wage(wage_per_hr=20, hr_per_day=8)
-        print(f"Employee's daily wage is {daily_wage}")
+        match part_or_full():
+            case 1:
+                #When employee is part time
+                daily_wage = calc_daily_wage(wage_per_hr=20, hr_per_day=4)
+                wage_type = "Part time"
+            case 2:
+                #When employee is full time
+                daily_wage = calc_daily_wage(wage_per_hr=20, hr_per_day=8)
+                wage_type = "Full time"
+        print(f"Employee's daily wage is {daily_wage} as employee is {wage_type}")
     else:
         print("Employee is absent today")
         
