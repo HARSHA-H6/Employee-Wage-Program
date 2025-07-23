@@ -30,19 +30,6 @@ def calc_daily_wage(wage_per_hr, hr_per_day):
     daily_wage = hr_per_day * wage_per_hr
     return daily_wage
 
-def part_or_full():
-    """
-        Description:
-        This function is know whether the employee is part time or full time
-
-        Parameter:
-        None
-
-        Return:
-        It returns an Integer value 1 or 2, for part time or full time
-    """
-    return random.randint(1,2)   
-
 try:
     if is_present() :
         print("Employee is present today")
