@@ -1,6 +1,14 @@
 
 import random
 
+# Creating the constants so Readablity and maintainablity of the code increases
+WAGE_PER_HR = 20
+PART_TIME_HRS = 4
+FULL_TIME_HRS = 8
+MAX_WORKING_DAYS = 20
+MAX_WORKING_HRS = 100
+
+
 def is_present()->int:
     """
         Description:
@@ -15,7 +23,7 @@ def is_present()->int:
     return random.randint(0,1)
 
 
-def calc_daily_wage(wage_per_hr, hr_per_day):
+def calc_daily_wage(WAGE_PER_HR, hr_per_day)->int:
     """
         Description:
         This function is used to calculate daily wage of an employee
@@ -27,10 +35,10 @@ def calc_daily_wage(wage_per_hr, hr_per_day):
         Return:
         It returns daily wage of employee as integer value
     """   
-    daily_wage = hr_per_day * wage_per_hr
+    daily_wage = hr_per_day * WAGE_PER_HR
     return daily_wage
 
-def part_or_full():
+def part_or_full() ->int :
     """
         Description:
         This function is know whether the employee is part time or full time
@@ -46,30 +54,38 @@ def part_or_full():
 
 #initializing monthly wage
 monthly_wage = 0
-working_days = 20 # mentioned in the problem statement
 emp_present = 0
+total_hrs = 0
 
 try:
-    for day in range(working_days):
-        if is_present() :
-            #employee is present
-            emp_present += 1
-            match part_or_full():
-                case 1:
-                    #When employee is part time
-                    daily_wage = calc_daily_wage(wage_per_hr=20, hr_per_day=4)
-                case 2:
-                    #When employee is full time
-                    daily_wage = calc_daily_wage(wage_per_hr=20, hr_per_day=8)
-            monthly_wage += daily_wage
+    while True:
+        #loop till this condition become true
+        if total_hrs < MAX_WORKING_HRS and emp_present < MAX_WORKING_HRS:
+            if is_present() :
+                #employee is present
+                emp_present += 1
+                match part_or_full():
+                    case 1:
+                        #When employee is part time
+                        hr_per_day = PART_TIME_HRS
+                        
+                    case 2:
+                        hr_per_day = FULL_TIME_HRS
+                        
+                daily_wage = calc_daily_wage(WAGE_PER_HR,hr_per_day)
+                total_hrs += hr_per_day
+                monthly_wage += daily_wage
+            else:
+                #employee is absent
+                total_hrs += 0
+                monthly_wage += 0
         else:
-            #employee is absent
-            monthly_wage += 0
             
+            break
             
 except Exception as e:
     print(f"Exception occured {e} please try again")
 
-print(f"Employee's monthly wage is ₹{monthly_wage} for a month of {working_days} working days.",
-       f"Employee was present for {emp_present} days and absent for {20-emp_present} days.", sep='\n')
+print(f"Employee's monthly wage is ₹{monthly_wage} for a month of {MAX_WORKING_DAYS} working days",
+      f"Employee was present for {emp_present} days with total working hours of {total_hrs} hrs" ,sep='\n')
     
